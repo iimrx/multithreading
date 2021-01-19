@@ -72,7 +72,7 @@ def check_sorted(d):
 
 if __name__=='__main__':
     with open('results.txt', 'w') as f:
-        lengths = [2*10**i for i in range(1, 7)]
+        lengths = [2*10**i for i in range(3)]
         f.writelines(['Length  One_time  Multi_time  Ratio\r\n'])
         for length in lengths:
             print ('----------------------------')
