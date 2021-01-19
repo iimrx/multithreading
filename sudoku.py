@@ -1,6 +1,7 @@
 from itertools import product
 from threading import Thread
 import queue
+import time
 
 DIGITS = set(range(1, 10)) # 1-9
 
@@ -32,9 +33,11 @@ def check_sudoku(grid):
     """
     Validate a sudoku solution.
 
-    Given a grid as a list of lists, return None if it is will-formed,
-    False if it is invalid, or True if it is a valid solution.
+    Given a grid as a list of lists, return None if it is will-formed, False if it is invalid, or True if it is a valid solution.
     """
+    # Capture program start time
+    start_time = time.perf_counter()
+
     assert isinstance(grid, list)
     q = queue.Queue()
     if not check_grid_size(grid):
@@ -51,11 +54,16 @@ def check_sudoku(grid):
         t = Thread(target=check_3x3_grid, args=(grid, q))
         t.start()
         grid_threads.append(t)
+        print(f'Num of threads: {len(grid_threads)}')
 
     row_thread.join()
     columns_thread.join()
 
     [t.join() for t in grid_threads]
+    # Capture program execution time
+    end_time = time.perf_counter()
+    execution_time = end_time - start_time
+    print(f'Execution time: {round(execution_time, 5)} sec')
 
     results = []
     while not q.empty():
@@ -97,7 +105,7 @@ def main():
 
     print(f'Valid: {check_sudoku(valid)}')
     print(f'InValid: {check_sudoku(invalid)}')
-    print(f'will_Formed: {check_sudoku(will_formed)}')
+    print(f'will Formed: {check_sudoku(will_formed)}')
 
 if __name__ == '__main__':
     main()
