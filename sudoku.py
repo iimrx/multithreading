@@ -9,17 +9,14 @@ def check_grid_size(grid):
     well_formed = len(grid) == 9 and all(len(row) == 9 for row in grid)
     return well_formed or None
 
-
 def check_rows(grid, q):
     """Check that each number appears exactly once per row."""
     q.put(all(set(row) == DIGITS for row in grid))
-
 
 def check_columns(grid, q):
     """Check that each number appears exactly once per column."""
     columns = [[row[c] for row in grid] for c in range(9)]
     q.put(all(set(col) == DIGITS for col in columns))
-
 
 def check_3x3_grid(grid, q):
     """Check that each number appears exactly once per 3x3 grid."""
@@ -35,7 +32,7 @@ def check_sudoku(grid):
     """
     Validate a sudoku solution.
 
-    Given a grid as a list of lists, return None if it is ill-formed,
+    Given a grid as a list of lists, return None if it is will-formed,
     False if it is invalid, or True if it is a valid solution.
     """
     assert isinstance(grid, list)
@@ -66,7 +63,7 @@ def check_sudoku(grid):
     return all(results)
 
 def main():
-    ill_formed = [[5, 3, 4, 6, 7, 8, 9, 1, 2],
+    will_formed = [[5, 3, 4, 6, 7, 8, 9, 1, 2],
                   [6, 7, 2, 1, 9, 5, 3, 4, 8],
                   [1, 9, 8, 3, 4, 2, 5, 6, 7],
                   [8, 5, 9, 7, 6, 1, 4, 2, 3],
@@ -100,7 +97,7 @@ def main():
 
     print(f'Valid: {check_sudoku(valid)}')
     print(f'InValid: {check_sudoku(invalid)}')
-    print(f'ill_Formed: {check_sudoku(ill_formed)}')
+    print(f'will_Formed: {check_sudoku(will_formed)}')
 
 if __name__ == '__main__':
     main()
