@@ -77,8 +77,8 @@ if __name__=='__main__':
         for length in lengths:
             print ('----------------------------')
             print ('List length : ' + str(length))
-            lst = [randint(0, 10**4) for i in range(length)]
-            # print 'List : ' + str(lst)
+            lst = [randint(0, 10) for i in range(0,9)]
+            print ('List : ' + str(lst))
             print ('ONE THREAD')
             start = time.perf_counter()
             res = sort(lst)
