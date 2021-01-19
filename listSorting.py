@@ -93,6 +93,8 @@ if __name__=='__main__':
             multi_time = time.perf_counter() - start
             print ('Sorting time (s) : ' + str(multi_time))
             print ('Sort checking : ' + str(check_sorted(res)))
+            print ('Output List: '+ str(multi_sort(lst)) +'\n')
+            
             print ('CONCLUSION')
             print ('Time ratio multi/one : ' + str(multi_time/one_time))
             f.writelines([str(length)+'  '+
