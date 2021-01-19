@@ -76,15 +76,17 @@ if __name__=='__main__':
         f.writelines(['Length  One_time  Multi_time  Ratio\r\n'])
         for length in lengths:
             print ('----------------------------')
-            print ('List length : ' + str(length))
-            lst = [randint(0, 10) for i in range(0,9)]
-            print ('List : ' + str(lst))
+            lst = [randint(0, 10) for i in range(0,10)]
+            print ('Input List: ' + str(lst))
+            print ('List length : ' + str(len(lst)))
             print ('ONE THREAD')
             start = time.perf_counter()
             res = sort(lst)
             one_time = time.perf_counter() - start
             print ('Sorting time (s) : ' + str(one_time))
             print ('Sort checking : ' + str(check_sorted(res)))
+            print ('Output List: '+ str(sort(lst)) +'\n')
+
             print ('MULTIPLE THREAD')
             start = time.perf_counter()
             res = multi_sort(lst)
