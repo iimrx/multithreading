@@ -70,7 +70,6 @@ def check_sorted(d):
         except IndexError:
             return True
 
-
 if __name__=='__main__':
     with open('results.txt', 'w') as f:
         lengths = [2*10**i for i in range(1, 7)]
