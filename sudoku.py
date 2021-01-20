@@ -54,11 +54,11 @@ def check_sudoku(grid):
         t = Thread(target=check_3x3_grid, args=(grid, q))
         t.start()
         grid_threads.append(t)
-        print(f'Num of threads: {len(grid_threads)}')
+        print(f'Thread Number: {len(grid_threads)}, Thread Time: {round(time.clock_gettime(time.CLOCK_THREAD_CPUTIME_ID), 5)}')
 
     row_thread.join()
     columns_thread.join()
-
+    
     [t.join() for t in grid_threads]
     # Capture program execution time
     end_time = time.perf_counter()
