@@ -1,3 +1,4 @@
+# --------------------Needed Packages------------------------- #
 from collections import deque
 from random import randint
 from itertools import islice
@@ -5,10 +6,11 @@ from threading import Thread
 from itertools import product
 import time
 import queue
-
+# --------------------ArraySorting Solver------------------------- #
 startArray = time.time()
 sort_dict = dict()
-def merge(da, db):
+
+def merge(da, db): # this fun is handels the merging step!
     res = deque()
     a = da.popleft()
     b = db.popleft()
@@ -31,7 +33,7 @@ def merge(da, db):
                 break
     return res
 
-def sort(d, put_in_global = False, nb = 0):
+def sort(d, put_in_global = False, nb = 0): # this fun is handels sorting step!
     l = len(d)
     if l <= 1:
         return d
@@ -45,7 +47,7 @@ def sort(d, put_in_global = False, nb = 0):
         else:
             return merge(sda, sdb)
 
-def multi_sort(d):
+def multi_sort(d): # this fun is handeling spliting and sorting it!
     l = len(d)
     if l <= 1:
         return d
@@ -60,7 +62,7 @@ def multi_sort(d):
         sdb.join() 
         return merge(sort_dict[1], sort_dict[2])
 
-def check_sorted(d):
+def check_sorted(d): # this fun checks if the is sorted or not!
     if d:
         s = d.popleft()
     while True:
@@ -73,42 +75,37 @@ def check_sorted(d):
             return True
 
 if __name__=='__main__':
+  # here we did the data manipulation step and outputing the result
     with open('results.txt', 'w') as f:
         lengths = [2*10**i for i in range(2)]
         f.writelines(['Length  One_time  Multi_time  Ratio\r\n'])
         for length in lengths:
-            print ('----------------------------')
+            print ('--------------One Thread--------------')
             lst = [randint(0, 10) for i in range(0,9)]
             print ('Input List: ' + str(lst))
             print ('List length : ' + str(len(lst)))
-            print ('ONE THREAD')
             start = time.perf_counter()
             res = sort(lst)
             one_time = time.perf_counter() - start
             print ('Sorting time (s) : ' + str(one_time))
-            # print ('Sort checking : ' + str(check_sorted(res)))
             print ('Output List: '+ str(sort(lst)) +'\n')
             print('App: ArraySorting')
 
-            print ('MULTIPLE THREAD')
+            print ('--------------One Thread--------------')
             start = time.perf_counter()
             res = multi_sort(lst)
             multi_time = time.perf_counter() - start
             print ('Sorting time (s) : ' + str(multi_time))
-            # print ('Sort checking : ' + str(check_sorted(res)))
             print ('Output List: '+ str(multi_sort(lst)) +'\n')
             print('App: ArraySorting')
-            
-            print ('Time ratio multi/one : ' + str(multi_time/one_time) + '\n')
+            print ('Time ratio multi/one : ' + str((multi_time/one_time)) + '\n')
             f.writelines([str(length)+'  '+
                           str(one_time)+'  '+
                           str(multi_time)+'  '+
                           str(multi_time/one_time)+'\r\n'
                           ])
 endArray = time.time()
-
-# ----------------------------------------------------- #
-
+# ------------------------Sudoku----------------------------- #
 startSudoku = time.time()
 DIGITS = set(range(1, 10)) # 1-9
 
@@ -137,7 +134,6 @@ def check_3x3_grid(grid, q):
     q.put(True)
 
 def check_sudoku(grid):
-    # Capture program start time
     start_time = time.perf_counter()
 
     assert isinstance(grid, list)
@@ -152,11 +148,14 @@ def check_sudoku(grid):
     columns_thread.start()
 
     grid_threads = []
+    thread_time = []
     for _ in range(9):
         t = Thread(target=check_3x3_grid, args=(grid, q))
         t.start()
         grid_threads.append(t)
-        print(f'Thread Number: {len(grid_threads)}, Thread Time: {round(time.clock_gettime(time.CLOCK_THREAD_CPUTIME_ID), 5)}, App: Sudoku')
+        threadTime = round(time.clock_gettime(time.CLOCK_THREAD_CPUTIME_ID), 5)
+        thread_time.append(threadTime)
+        print(f'Thread Number: {len(grid_threads)}, Thread Time: {round(threadTime, 5)}, App: Sudoku')
 
     row_thread.join()
     columns_thread.join()
@@ -171,51 +170,32 @@ def check_sudoku(grid):
     while not q.empty():
         results.append(q.get())
     return all(results)
-
 def main():
-    will_formed = [[5, 3, 4, 6, 7, 8, 9, 1, 2],
-                  [6, 7, 2, 1, 9, 5, 3, 4, 8],
-                  [1, 9, 8, 3, 4, 2, 5, 6, 7],
-                  [8, 5, 9, 7, 6, 1, 4, 2, 3],
-                  [4, 2, 6, 8, 5, 3, 7, 9],  # <---
-                  [7, 1, 3, 9, 2, 4, 8, 5, 6],
-                  [9, 6, 1, 5, 3, 7, 2, 8, 4],
-                  [2, 8, 7, 4, 1, 9, 6, 3, 5],
-                  [3, 4, 5, 2, 8, 6, 1, 7, 9]]
+  # check_sudoku should return True
+  userInput = [[5, 3, 4, 6, 7, 8, 9, 1, 2],
+            [6, 7, 2, 1, 9, 5, 3, 4, 8],
+            [1, 9, 8, 3, 4, 2, 5, 6, 7],
+            [8, 5, 9, 7, 6, 1, 4, 2, 3],
+            [4, 2, 6, 8, 5, 3, 7, 9, 1],
+            [7, 1, 3, 9, 2, 4, 8, 5, 6],
+            [9, 6, 1, 5, 3, 7, 2, 8, 4],
+            [2, 8, 7, 4, 1, 9, 6, 3, 5],
+            [3, 4, 5, 2, 8, 6, 1, 7, 9]]
 
-    # check_sudoku should return True
-    valid = [[5, 3, 4, 6, 7, 8, 9, 1, 2],
-             [6, 7, 2, 1, 9, 5, 3, 4, 8],
-             [1, 9, 8, 3, 4, 2, 5, 6, 7],
-             [8, 5, 9, 7, 6, 1, 4, 2, 3],
-             [4, 2, 6, 8, 5, 3, 7, 9, 1],
-             [7, 1, 3, 9, 2, 4, 8, 5, 6],
-             [9, 6, 1, 5, 3, 7, 2, 8, 4],
-             [2, 8, 7, 4, 1, 9, 6, 3, 5],
-             [3, 4, 5, 2, 8, 6, 1, 7, 9]]
-
-    # check_sudoku should return False
-    invalid = [[5, 3, 4, 6, 7, 8, 9, 1, 2],
-               [6, 7, 2, 1, 9, 5, 3, 4, 8],
-               [1, 9, 8, 3, 8, 2, 5, 6, 7],
-               [8, 5, 9, 7, 6, 1, 4, 2, 3],
-               [4, 2, 6, 8, 5, 3, 7, 9, 1],
-               [7, 1, 3, 9, 2, 4, 8, 5, 6],
-               [9, 6, 1, 5, 3, 7, 2, 8, 4],
-               [2, 8, 7, 4, 1, 9, 6, 3, 5],
-               [3, 4, 5, 2, 8, 6, 1, 7, 9]]
-
-    print(f'Valid: {check_sudoku(valid)}')
-    print(f'InValid: {check_sudoku(invalid)}')
-    print(f'will Formed: {check_sudoku(will_formed)}')
+  if check_sudoku(userInput) == True:
+    print(f'Valid Sudoku Solution: {check_sudoku(userInput)}')
+  elif check_sudoku(userInput) == False:
+    print(f'Invalid Sudoku Solution: {check_sudoku(userInput)}')
+  elif check_sudoku(userInput) == None:
+    print(f'None Sudoku Solution: {check_sudoku(userInput)}')
 
 if __name__ == '__main__':
     main()
 endSudoku = time.time()
-
+# ------------------------Outputs and Results----------------------------- #
 totalSudoku = round((endSudoku-startSudoku), 5)
 totalArray = round((endArray-startArray), 5)
-totalBoth = totalSudoku + totalArray
+totalBoth = round((totalSudoku + totalArray), 5)
 
 print(f'\nTime to Run Sudoku: {totalSudoku} \nTime to Run ArraySorting: {totalArray} \nTotal Time To Run Files: {totalBoth}')
 
