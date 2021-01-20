@@ -91,7 +91,7 @@ if __name__=='__main__':
             print ('Output List: '+ str(sort(lst)) +'\n')
             print('App: ArraySorting')
 
-            print ('--------------One Thread--------------')
+            print ('--------------Multi Thread--------------')
             start = time.perf_counter()
             res = multi_sort(lst)
             multi_time = time.perf_counter() - start
