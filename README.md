@@ -1,4 +1,4 @@
-# Multithreading
+# Using Multithread(could it improve time?)
 Multithreading for Sudoku and Array Sorting Solver!
 ### Sudoku Solution Validator:
 - Athread to check that each column contains the digits 1 through 9.
