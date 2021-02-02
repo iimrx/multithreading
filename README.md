@@ -15,12 +15,11 @@ Multithreading for Sudoku and Array Sorting Solver!
 - The merging thread will then merge the two sublists into this second array.
 
 ### Run the file using (Terminal):
-- first install packages using:
-```python
-```
+- first enter the file(cuz sometimes it doesn't recognize the path!):
 ```python
 cd /Desktop/multithreading
 ```
+- then run the file using this command:
 ```python
 python3 run.py
 ```
