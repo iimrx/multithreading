@@ -17,7 +17,7 @@ Multithreading for Sudoku and Array Sorting Solver!
 ### Run the file using (Terminal):
 - first enter the file(cuz sometimes it doesn't recognize the path!):
 ```python
-cd /Desktop/multithreading
+cd /{path}/multithreading
 ```
 - then run the file using this command:
 ```python
